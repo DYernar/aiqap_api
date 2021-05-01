@@ -17,6 +17,7 @@ import (
 func GetBookList(c *gin.Context) {
 	books, err := db.GetAllBooks()
 	if err != nil {
+		fmt.Println(err)
 		c.String(500, err.Error())
 		return
 	}
@@ -51,6 +52,12 @@ func CreateBook(c *gin.Context) {
 
 	var book models.Book
 	book.AudioLink = "/audio/" + filename + ".mp3"
+	book.Title = c.Request.FormValue("title")
+	book.AuthorName = c.Request.FormValue("author_name")
+	book.AuthorSurname = c.Request.FormValue("author_surname")
+	book.Description = c.Request.FormValue("description")
+	book.Categories = strings.Split(c.Request.FormValue("categories"), ", ")
+
 	json.NewDecoder(c.Request.Body).Decode(&book)
 
 	result := db.CreateBook(book)

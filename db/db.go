@@ -14,7 +14,7 @@ import (
 func ConnectDb() *mongo.Client {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
-	client, _ := mongo.Connect(ctx, options.Client().ApplyURI("mongodb://localhost:27017"))
+	client, _ := mongo.Connect(ctx, options.Client().ApplyURI("mongodb+srv://yernar:uuSDFddDDD7!@cluster0.wa4dr.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"))
 
 	return client
 }
@@ -24,7 +24,7 @@ func GetAllBooks() ([]models.Book, error) {
 
 	client := ConnectDb()
 	collection := client.Database("aiqap").Collection("books")
-	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, _ := context.WithTimeout(context.Background(), 20*time.Second)
 
 	cursor, err := collection.Find(ctx, bson.M{})
 
