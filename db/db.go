@@ -3,6 +3,7 @@ package db
 import (
 	"aiqap-back/models"
 	"context"
+	"fmt"
 	"time"
 
 	"go.mongodb.org/mongo-driver/bson"
@@ -12,10 +13,12 @@ import (
 )
 
 func ConnectDb() *mongo.Client {
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
 	defer cancel()
-	client, _ := mongo.Connect(ctx, options.Client().ApplyURI("mongodb+srv://yernar:uuSDFddDDD7!@cluster0.wa4dr.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"))
-
+	client, err := mongo.Connect(ctx, options.Client().ApplyURI("mongodb+srv://yernar:uuSDFddDDD7!@cluster0.wa4dr.mongodb.net/aiqap?retryWrites=true&w=majority"))
+	if err != nil {
+		fmt.Println(err)
+	}
 	return client
 }
 
@@ -23,6 +26,10 @@ func GetAllBooks() ([]models.Book, error) {
 	var books []models.Book
 
 	client := ConnectDb()
+	if client == nil {
+		fmt.Println("client is null")
+		return books, nil
+	}
 	collection := client.Database("aiqap").Collection("books")
 	ctx, _ := context.WithTimeout(context.Background(), 20*time.Second)
 

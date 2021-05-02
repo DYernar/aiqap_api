@@ -14,6 +14,10 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
+func HelloWorld(c *gin.Context) {
+	c.String(200, "Hello World")
+}
+
 func GetBookList(c *gin.Context) {
 	books, err := db.GetAllBooks()
 	if err != nil {

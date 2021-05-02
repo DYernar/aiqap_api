@@ -8,3 +8,6 @@ ENV TZ Asia/Almaty
 CMD ["./aiqap"]
 
 
+
+#sudo docker build -t aiqap .
+# docker run -d -p 8080:8080 -v ~/go/aiqap-back/audio:/usr/src/app/audio  aiqap
