@@ -15,7 +15,9 @@ import (
 )
 
 func HelloWorld(c *gin.Context) {
-	c.String(200, "Hello World")
+	c.HTML(http.StatusOK, "index.tmpl", gin.H{
+		"title": "Main website",
+	})
 }
 
 func GetBookList(c *gin.Context) {

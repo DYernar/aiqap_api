@@ -17,7 +17,10 @@ func main() {
 		fmt.Println(err)
 	}
 	router := gin.Default()
+	router.LoadHTMLGlob("static/*")
+	router.Static("/images", "./images")
 	router.Static("/audio", "./audio")
+	router.Static("/static", "./static")
 	router.GET("/", controllers.HelloWorld)
 	router.GET("/api/get/book/list/", controllers.GetBookList)
 	router.GET("/api/get/book/detail/:id", controllers.GetBook)
