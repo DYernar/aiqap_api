@@ -73,3 +73,18 @@ func GetBook(id primitive.ObjectID) (models.Book, error) {
 
 	return book, err
 }
+
+func DeleteBook(id primitive.ObjectID) bool {
+	client := ConnectDb()
+	collection := client.Database("aiqap").Collection("books")
+	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+
+	_, err := collection.DeleteOne(ctx, bson.M{"_id": id})
+	if err != nil {
+		fmt.Println("cannot delete error: ", err)
+		return false
+	}
+
+	fmt.Println("Successfully deleted")
+	return true
+}
