@@ -1,4 +1,4 @@
-FROM golang:latest
+FROM golang:any
 WORKDIR /usr/src/app/
 COPY . /usr/src/app/
 RUN go mod download
@@ -11,3 +11,4 @@ CMD ["./aiqap"]
 
 #sudo docker build -t aiqap .
 # docker run -d -p 4444:4444 -v ~/go/aiqap-back/audio:/usr/src/app/audio  aiqap
+# docker run -d -p 4444:4444 -v ~/workspace/aiqap-api/audio:/usr/src/app/audio  aiqap
