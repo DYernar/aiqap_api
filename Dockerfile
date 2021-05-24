@@ -1,4 +1,4 @@
-FROM golang:any
+FROM golang:latest
 WORKDIR /usr/src/app/
 COPY . /usr/src/app/
 RUN go mod download
